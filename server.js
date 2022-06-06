@@ -12,6 +12,7 @@ require("dotenv").config();
 const usersRoutes = require("./routes/userRoutes");
 
 const port = process.env.PORT || 3000;
+const host = process.env.HOST || "127.0.0.1";
 app.use(logger("dev"));
 app.use(express.json());
 app.use(
@@ -29,8 +30,8 @@ app.disable("x-powered-by");
  */
 usersRoutes(app);
 
-server.listen(port, "localhost", function () {
-  console.log(`http://localhost:${port}`);
+server.listen(port, host, function () {
+  console.log(`http://${host}:${port}`);
 });
 
 // ERROR HANDLER
