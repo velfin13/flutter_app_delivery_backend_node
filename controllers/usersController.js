@@ -41,6 +41,7 @@ module.exports = {
           email: data.email,
           phone: data.phone,
           image: data.image,
+          roles: JSON.parse(data.roles),
           sesion_token: `JWT ${token}`,
         };
 

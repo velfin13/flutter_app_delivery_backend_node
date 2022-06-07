@@ -45,7 +45,34 @@ User.create = async (user, result) => {
 };
 
 User.findUserByID = async (id, result) => {
-  const sql = `SELECT id, email, name, lastname, phone, image, password FROM users WHERE id=?;`;
+  const sql = `SELECT
+                U.id,
+                U.email,
+                U.name,
+                U.lastname,
+                U.phone,
+                U.password,
+                JSON_ARRAYAGG(
+                    json_object(
+                        "id",
+                        CONVERT(R.id,CHAR),
+                        "name",
+                        R.name,
+                        "image",
+                        R.image,
+                        "route",
+                        R.route
+                    )
+                ) as roles
+              FROM
+                users as U
+                inner join user_has_roles as UHR on U.id = UHR.id_user
+                inner join roles R on R.id = UHR.id_rol
+              WHERE
+                id = ?
+              group by
+                U.id;`;
+
   db.query(sql, [id], (err, res) => {
     if (err) {
       console.log("Error:", err);
@@ -58,7 +85,34 @@ User.findUserByID = async (id, result) => {
 };
 
 User.findUserByEmail = async (email, result) => {
-  const sql = `SELECT id, email, name, lastname, phone, image, password FROM users WHERE email=?;`;
+  const sql = `SELECT
+                  U.id,
+                  U.email,
+                  U.name,
+                  U.lastname,
+                  U.phone,
+                  U.password,
+                  JSON_ARRAYAGG(
+                      json_object(
+                          "id",
+                          CONVERT(R.id,CHAR),
+                          "name",
+                          R.name,
+                          "image",
+                          R.image,
+                          "route",
+                          R.route
+                      )
+                  ) as roles
+                FROM
+                  users as U
+                  inner join user_has_roles as UHR on U.id = UHR.id_user
+                  inner join roles R on R.id = UHR.id_rol
+                WHERE
+                  email = ?
+                group by
+                  U.id;`;
+
   db.query(sql, [email], (err, res) => {
     if (err) {
       console.log("Error:", err);

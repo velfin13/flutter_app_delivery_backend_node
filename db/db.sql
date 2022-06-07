@@ -26,21 +26,21 @@ INSERT INTO
 values
     (
         'RESTAURANTE',
-        NULL,
+        "https://firebasestorage.googleapis.com/v0/b/delivery-app-8d8d6.appspot.com/o/restaurant.png?alt=media&token=8c14d75a-9dfa-4434-bafc-1af1be072dbf",
         '/restaurant/orders/list',
         '2022-04-13',
         '2022-04-13'
     ),
     (
         'REPARTIDOR',
-        NULL,
+        \ 'https://firebasestorage.googleapis.com/v0/b/delivery-app-8d8d6.appspot.com/o/delivery_little2.png?alt=media&token=735771bc-079d-4b71-bfc3-a72a168db840',
         '/delivery/orders/list',
         '2022-04-13',
         '2022-04-13'
     ),
     (
         'CLIENTE',
-        NULL,
+        'https://firebasestorage.googleapis.com/v0/b/delivery-app-8d8d6.appspot.com/o/cliente.jpg?alt=media&token=aa954862-5db0-47f4-8f7a-93172e3945fb',
         '/client/products/list',
         '2022-04-13',
         '2022-04-13'
