@@ -44,4 +44,30 @@ User.create = async (user, result) => {
   );
 };
 
+User.findUserByID = async (id, result) => {
+  const sql = `SELECT id, email, name, lastname, phone, image, password FROM users WHERE id=?;`;
+  db.query(sql, [id], (err, res) => {
+    if (err) {
+      console.log("Error:", err);
+      result(err, null);
+    } else {
+      console.log("Usuario:", res[0]);
+      result(null, res[0]);
+    }
+  });
+};
+
+User.findUserByEmail = async (email, result) => {
+  const sql = `SELECT id, email, name, lastname, phone, image, password FROM users WHERE email=?;`;
+  db.query(sql, [email], (err, res) => {
+    if (err) {
+      console.log("Error:", err);
+      result(err, null);
+    } else {
+      console.log("Usuario:", res[0]);
+      result(null, res[0]);
+    }
+  });
+};
+
 module.exports = User;
