@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const logger = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
+const multer = require("multer");
 require("dotenv").config();
 
 /*
@@ -30,10 +31,12 @@ require("./config/passport")(passport);
 
 app.disable("x-powered-by");
 
+const upload = multer({ storage: multer.memoryStorage() });
+
 /*
  * LLAMADO DE LAS RUTAS
  */
-usersRoutes(app);
+usersRoutes(app,upload);
 
 server.listen(port, host, function () {
   console.log(`http://${host}:${port}`);
