@@ -21,6 +21,16 @@ CREATE TABLE roles(
     updated_at timestamp default current_timestamp not null
 );
 
+CREATE TABLE user_has_roles(
+    id_user bigint not null,
+    id_rol bigint not null,
+    created_at timestamp default current_timestamp not null,
+    updated_at timestamp default current_timestamp not null,
+    foreign key (id_user) references users(id) on update cascade on delete cascade,
+    foreign key (id_rol) references roles(id) on update cascade on delete cascade,
+    primary key(id_user, id_rol)
+);
+
 INSERT INTO
     roles(name, image, route, created_at, updated_at)
 values
@@ -33,7 +43,7 @@ values
     ),
     (
         'REPARTIDOR',
-        \ 'https://firebasestorage.googleapis.com/v0/b/delivery-app-8d8d6.appspot.com/o/delivery_little2.png?alt=media&token=735771bc-079d-4b71-bfc3-a72a168db840',
+        'https://firebasestorage.googleapis.com/v0/b/delivery-app-8d8d6.appspot.com/o/delivery_little2.png?alt=media&token=735771bc-079d-4b71-bfc3-a72a168db840',
         '/delivery/orders/list',
         '2022-04-13',
         '2022-04-13'
@@ -45,13 +55,3 @@ values
         '2022-04-13',
         '2022-04-13'
     );
-
-CREATE TABLE user_has_roles(
-    id_user bigint not null,
-    id_rol bigint not null,
-    created_at timestamp default current_timestamp not null,
-    updated_at timestamp default current_timestamp not null,
-    foreign key (id_user) references users(id) on update cascade on delete cascade,
-    foreign key (id_rol) references roles(id) on update cascade on delete cascade,
-    primary key(id_user, id_rol)
-)

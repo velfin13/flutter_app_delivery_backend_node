@@ -51,6 +51,7 @@ User.findUserByID = async (id, result) => {
                 U.name,
                 U.lastname,
                 U.phone,
+                U.image,
                 U.password,
                 JSON_ARRAYAGG(
                     json_object(
@@ -91,6 +92,7 @@ User.findUserByEmail = async (email, result) => {
                   U.name,
                   U.lastname,
                   U.phone,
+                  U.image,
                   U.password,
                   JSON_ARRAYAGG(
                       json_object(
