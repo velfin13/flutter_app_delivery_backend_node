@@ -46,7 +46,7 @@ User.create = async (user, result) => {
 
 User.findUserByID = async (id, result) => {
   const sql = `SELECT
-                CONVERT(U.id,CHAR),
+                CONVERT(U.id,CHAR) as id,
                 U.email,
                 U.name,
                 U.lastname,
