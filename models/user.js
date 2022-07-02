@@ -46,7 +46,7 @@ User.create = async (user, result) => {
 
 User.findUserByID = async (id, result) => {
   const sql = `SELECT
-                U.id,
+                CONVERT(U.id,CHAR),
                 U.email,
                 U.name,
                 U.lastname,
@@ -70,7 +70,7 @@ User.findUserByID = async (id, result) => {
                 inner join user_has_roles as UHR on U.id = UHR.id_user
                 inner join roles R on R.id = UHR.id_rol
               WHERE
-                id = ?
+                U.id = ?
               group by
                 U.id;`;
 
@@ -124,6 +124,66 @@ User.findUserByEmail = async (email, result) => {
       result(null, res[0]);
     }
   });
+};
+
+User.update = async (user, result) => {
+  const sql = `UPDATE users 
+              set name=?, 
+              lastname=?, 
+              phone=?,
+              image=?,
+              updated_at=?
+              where id = ?;
+  `;
+  db.query(
+    sql,
+    [
+      user.name,
+      user.lastname,
+      user.phone,
+      user.image,
+      new Date(),
+      user.id
+    ],
+    (err, res) => {
+      if (err) {
+        console.log("Error:", err);
+        result(err, null);
+      } else {
+        console.log("Usuario actualizado!! ", res.id);
+        result(null, user.id);
+      }
+    }
+  );
+};
+
+User.updateWithOutImage = async (user, result) => {
+  const sql = `UPDATE users 
+              set name=?, 
+              lastname=?, 
+              phone=?,
+              updated_at=?
+              where id = ?;
+  `;
+  db.query(
+    sql,
+    [
+      user.name,
+      user.lastname,
+      user.phone,
+      new Date(),
+      user.id
+    ],
+    (err, res) => {
+      if (err) {
+        console.log("Error:", err);
+        result(err, null);
+      } else {
+        console.log("Usuario actualizado!! ", res.id);
+        result(null, user.id);
+      }
+    }
+  );
 };
 
 module.exports = User;
